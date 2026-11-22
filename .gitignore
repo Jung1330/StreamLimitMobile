@@ -1,0 +1,27 @@
+# Gradle & Build Artifacts
+.gradle/
+.kotlin/
+build/
+app/build/
+
+# Local Environment Configuration
+local.properties
+
+# Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+.navigation/
+captures/
+*.apk
+!dist/StreamLimitMobile.apk
+*.aab
+*.ap_
+*.dex
+
+# Keystores (keep away from public commits)
+*.jks
+*.keystore
+
+# OS Generated
+.DS_Store
+Thumbs.db
