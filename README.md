@@ -5,8 +5,10 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Platform-Android%207.0%2B%20(API%2024--34)-10B981?style=for-the-badge&logo=android" alt="Android 7.0+" />
-  <img src="https://img.shields.io/badge/Language-Kotlin%202.1-6366F1?style=for-the-badge&logo=kotlin" alt="Kotlin 2.1" />
+  <a href="https://github.com/Jung1330/StreamLimitMobile/releases/latest">
+    <img src="https://img.shields.io/badge/APK%20İndir-v1.0.0%20Release-10B981?style=for-the-badge&logo=android" alt="Download Latest APK" />
+  </a>
+  <img src="https://img.shields.io/badge/Platform-Android%207.0%2B%20(API%2024--34)-6366F1?style=for-the-badge&logo=kotlin" alt="Android 7.0+" />
   <img src="https://img.shields.io/badge/Root-Gerektirmez%20(VpnService)-06B6D4?style=for-the-badge" alt="No Root Required" />
   <img src="https://img.shields.io/badge/License-MIT-F59E0B?style=for-the-badge" alt="MIT License" />
 </p>
@@ -16,6 +18,14 @@
 **StreamLimit Mobile**, masaüstü **StreamLimitPC** uygulamasının Android versiyonudur. Seçtiğiniz izinli uygulama(lar) (**Whitelist**) dışındaki tüm uygulamaların internet erişimini **root gerektirmeden** çekirdek düzeyinde tamamen keser.
 
 Ayrıca özel **"💻 Sadece PC'ye İnternet Ver (USB Tethering & Wi-Fi Hotspot İzolasyon Modu)"** sayesinde telefonunuzu bilgisayara USB Tethering veya Wi-Fi Hotspot ile bağladığınızda telefondaki tüm arka plan uygulamalarının internetini sıfırlar ve mobil verinizin **%100'ünün** gecikmesiz olarak bilgisayara akmasını sağlar.
+
+---
+
+## 📥 İndirme ve Kurulum (APK)
+
+En güncel kurulabilir `.apk` dosyasını doğrudan **[GitHub Releases (v1.0.0)](https://github.com/Jung1330/StreamLimitMobile/releases/latest)** sayfasından indirebilirsiniz:
+
+- 📦 **[StreamLimitMobile.apk İndir (v1.0.0 Release)](https://github.com/Jung1330/StreamLimitMobile/releases/download/v1.0.0/StreamLimitMobile.apk)**
 
 ---
 
@@ -52,33 +62,34 @@ Ayrıca özel **"💻 Sadece PC'ye İnternet Ver (USB Tethering & Wi-Fi Hotspot 
 
 ```mermaid
 flowchart LR
-    subgraph Android["📱 Android Cihaz (StreamLimit Mobile)"]
-        direction TB
-        Allowed["✅ İzinli Uygulamalar (Whitelist)\n& Tethering Sistem Paketleri\n(addDisallowedApplication)"]
-        Blocked["🚫 Diğer Tüm Uygulamalar\n(Arka Plan, Güncelleme, Telemetri)"]
-        Sinkhole["🕳️ StreamLimit Sinkhole TUN\n10.255.255.1/32 • fd00::1/128\n(Paket Sayacı & Drop)"]
+    subgraph Android["Android Cihaz - StreamLimit Mobile"]
+        Allowed["İzinli Uygulamalar ve Tethering Sistem Paketleri (addDisallowedApplication)"]
+        Blocked["Diğer Tüm Uygulamalar (Arka Plan, Güncelleme, Telemetri)"]
+        Sinkhole["StreamLimit Sinkhole TUN (10.255.255.1/32 - Paket Sayacı ve Drop)"]
     end
 
-    RealNet["🌐 Gerçek Wi-Fi / 4.5G / 5G\n(%100 Tam Hız • 0 ms Ek Ping)"]
-    PC["💻 Bilgisayar (PC)\nUSB Tethering (rndis0) / Hotspot (ap0)"]
+    RealNet["Gerçek Wi-Fi / 4.5G / 5G (Tam Hız ve 0 ms Ek Ping)"]
+    PC["Bilgisayar - USB Tethering (rndis0) ve Wi-Fi Hotspot (ap0)"]
 
-    Allowed ===>|"TUN Bypass (Doğrudan Erişim)"| RealNet
-    Allowed ===>|"%100 Saf Bant Genişliği"| PC
-    Blocked --->|"Route 0.0.0.0/0 & ::/0"| Sinkhole
+    Allowed -->|"TUN Bypass (Doğrudan Hat)"| RealNet
+    Allowed -->|"Saf Bant Genişliği"| PC
+    Blocked -->|"Route 0.0.0.0/0"| Sinkhole
 ```
 
 ---
 
-## 🚀 Kurulum
+## 🚀 Kurulum Seçenekleri
 
-### Hazır APK ile Doğrudan Kurulum
-Depodaki [`dist/StreamLimitMobile.apk`](dist/StreamLimitMobile.apk) dosyasını telefonunuza indirip kurabilir veya bilgisayarınızdan `adb` ile tek komutla yükleyebilirsiniz:
+### 1. Telefon Üzerinden Doğrudan Kurulum
+1. **[Releases](https://github.com/Jung1330/StreamLimitMobile/releases/latest)** sayfasından `StreamLimitMobile.apk` dosyasını indirin ve telefonunuza kurun.
+2. Uygulamayı açıp izin vermek istediğiniz uygulamaları seçin (veya **Sadece PC'ye İnternet Ver** anahtarını açın) ve **İzolasyonu Başlat** butonuna dokunun.
 
+### 2. ADB ile Bilgisayardan Kurulum
 ```bash
 adb install -r dist/StreamLimitMobile.apk
 ```
 
-### Kaynak Koddan Derleme
+### 3. Kaynak Koddan Derleme
 Proje **Android SDK 34**, **Gradle 8.12** ve **JDK 17/21** ile sıfır ek yapılandırma gerektirmeden derlenebilir:
 
 ```bash
